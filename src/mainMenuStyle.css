@@ -1,0 +1,6 @@
+.label{
+    -fx-background-color: red;
+    -fx-font-family : 'Times New Roman';
+    -fx-font-size: 20;
+    -fx-font-weight: bold
+}

@@ -7,9 +7,9 @@ import mainMenu.MainMenu;
 public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
-        MainMenu main = new MainMenu();
+        MainMenu test = new MainMenu(primaryStage);
 
-        primaryStage.setScene(new Scene(main,500,500));
+        primaryStage.setScene(new Scene(test,1024,614));
         primaryStage.setTitle("Mickey Mouse");
         primaryStage.show();
     }
