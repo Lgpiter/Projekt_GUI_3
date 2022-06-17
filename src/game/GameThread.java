@@ -26,7 +26,6 @@ public class GameThread extends Thread{
                         break;
                     }
                     Platform.runLater(this::addEgg);
-                    System.out.println("test");
 
                     try {
                         sleep(4000);

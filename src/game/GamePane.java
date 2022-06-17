@@ -11,7 +11,7 @@ public class GamePane extends Pane {
     private Label healthsLabel = new Label("4");
     private Label timeLabel = new Label("00:00");
 
-    private int mousePosition;
+    private int mousePosition = 1;
 
     private Timer timer = new Timer(timeLabel);
     private GameThread gameThread = new GameThread(this);
@@ -29,13 +29,21 @@ public class GamePane extends Pane {
                 BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
         setBackground(new Background(myBackground));
 
+
+        Label pom1 = new Label("Score: ");
+        getChildren().add(pom1);
+        pom1.setLayoutX(50);
         getChildren().add(scoreLabel);
-        scoreLabel.setLayoutX(50);
+        scoreLabel.setLayoutX(100);
 
         moveLeftUp();
 
         getChildren().add(timeLabel);
         timeLabel.setLayoutX(230);
+
+        Label pom3 = new Label("Healths: ");
+        getChildren().add(pom3);
+        pom3.setLayoutX(350);
         getChildren().add(healthsLabel);
         healthsLabel.setLayoutX(400);
 
