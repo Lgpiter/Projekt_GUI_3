@@ -3,6 +3,7 @@ package game;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 
 public class GamePane extends Pane {
@@ -12,6 +13,10 @@ public class GamePane extends Pane {
 
     private Timer timer = new Timer(timeLabel);
     private GameThread gameThread = new GameThread(this);
+
+    private ImageView leftMouse = new ImageView("file:images/mouseLeft.png");
+    private ImageView rightMouse = new ImageView("file:images/mouseRight.png");
+    private ImageView hands;
 
 
     public GamePane(){
@@ -40,5 +45,47 @@ public class GamePane extends Pane {
 
     public GameThread getGameThread() {
         return gameThread;
+    }
+
+    public void moveRight(){
+        getChildren().remove(rightMouse);
+        getChildren().remove(leftMouse);
+        getChildren().remove(hands);
+
+        hands = new ImageView("file:images/rightHands.png");
+        hands.setFitWidth(80);
+        hands.setFitHeight(80);
+        getChildren().add(hands);
+        hands.setLayoutX(110);
+        hands.setLayoutY(110);
+
+        rightMouse.setFitHeight(300);
+        rightMouse.setFitWidth(75);
+        getChildren().add(rightMouse);
+
+
+        rightMouse.setLayoutX(160);
+        rightMouse.setLayoutY(30);
+    }
+
+    public void moveLeft(){
+        getChildren().remove(rightMouse);
+        getChildren().remove(leftMouse);
+        getChildren().remove(hands);
+
+        hands = new ImageView("file:images/leftHands.png");
+        hands.setFitWidth(80);
+        hands.setFitHeight(80);
+        getChildren().add(hands);
+        hands.setLayoutX(110);
+        hands.setLayoutY(110);
+
+        leftMouse.setFitHeight(300);
+        leftMouse.setFitWidth(75);
+        getChildren().add(leftMouse);
+
+
+        leftMouse.setLayoutX(160);
+        leftMouse.setLayoutY(30);
     }
 }

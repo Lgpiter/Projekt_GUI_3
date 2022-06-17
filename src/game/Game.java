@@ -42,7 +42,7 @@ public class Game extends Pane {
         leftUp.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
-                System.out.println("Lewy gorny");
+                gamePane.moveLeft();
             }
         });
 
@@ -62,7 +62,7 @@ public class Game extends Pane {
         RightUp.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
-                System.out.println("Prawy gorny");
+                gamePane.moveRight();
             }
         });
 
