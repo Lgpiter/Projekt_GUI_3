@@ -3,16 +3,25 @@ package game;
 
 import javafx.event.EventHandler;
 import javafx.geometry.Rectangle2D;
+import javafx.scene.Scene;
 import javafx.scene.image.Image;
+import javafx.scene.input.KeyCombination;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
+import mainMenu.MainMenu;
 
 public class Game extends Pane {
+    GamePane gamePane = new GamePane();
+    Stage primaryStage;
+
     public Game(Stage primaryStage){
+        this.primaryStage = primaryStage;
+
         setPrefSize(1024,614);
-        BackgroundImage myBackground = new BackgroundImage(new Image("D:\\Projekt_GUI_3\\images\\gameGraffic.png",1024, 614, false,true),
+        BackgroundImage myBackground = new BackgroundImage(new Image("file:images/gameGraffic.png",1024, 614, false,true),
                 BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
         setBackground(new Background(myBackground));
         Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
@@ -22,8 +31,9 @@ public class Game extends Pane {
 
         addButtons();
 
-        GamePane pane = new GamePane();
-        getChildren().add(pane);
+        getChildren().add(gamePane);
+
+        setShortCut();
     }
 
     public void addButtons(){
@@ -66,5 +76,25 @@ public class Game extends Pane {
                 System.out.println("Prawy dolny");
             }
         });
+    }
+
+    public void spawnEgg(){
+
+    }
+
+    public void setShortCut(){
+        setOnKeyPressed(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent keyEvent) {
+                KeyCombination myCombination = KeyCombination.keyCombination("CTRL+SHIFT+Q");
+                if(myCombination.match(keyEvent))
+                    exitGame();
+            }
+        });
+    }
+
+    public void exitGame(){
+        gamePane.getTimer().stopThread();
+        primaryStage.setScene(new Scene(new MainMenu(primaryStage),1024,614));
     }
 }
