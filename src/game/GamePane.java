@@ -5,6 +5,7 @@ import javafx.scene.image.Image;
 
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
+import javafx.stage.Stage;
 
 public class GamePane extends Pane {
     private Label scoreLabel = new Label("0");
@@ -14,14 +15,18 @@ public class GamePane extends Pane {
     private int mousePosition = 1;
 
     private Timer timer = new Timer(timeLabel);
-    private GameThread gameThread = new GameThread(this);
+    private GameThread gameThread;
 
     private ImageView leftMouse = new ImageView("file:images/mouseLeft.png");
     private ImageView rightMouse = new ImageView("file:images/mouseRight.png");
     private ImageView hands;
 
+    Stage primaryStage;
 
-    public GamePane(){
+
+    public GamePane(Stage primaryStage){
+        this.primaryStage = primaryStage;
+        gameThread = new GameThread(this,primaryStage);
         setPrefSize(490,320);
         setLayoutX(267);
         setLayoutY(147);

@@ -2,7 +2,7 @@ package highScore;
 
 import java.io.Serializable;
 
-public class Player implements Serializable {
+public class Player implements Serializable, Comparable<Player> {
     String name;
     int score;
 
@@ -30,5 +30,10 @@ public class Player implements Serializable {
     @Override
     public String toString() {
         return "Name " + name + ", score=" + score;
+    }
+
+    @Override
+    public int compareTo(Player o) {
+        return o.score - this.score;
     }
 }

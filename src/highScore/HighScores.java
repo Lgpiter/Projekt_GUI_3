@@ -13,7 +13,9 @@ import javafx.stage.Stage;
 import mainMenu.MainMenu;
 import mainMenu.MainMenuButton;
 
+import java.io.*;
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class HighScores extends Pane {
     Stage primaryStage;
@@ -21,6 +23,13 @@ public class HighScores extends Pane {
     private static ArrayList<Player> players = new ArrayList<>();
 
     public HighScores(Stage primaryStage){
+        try(ObjectInputStream inputStream = new ObjectInputStream(new FileInputStream("highscores.bin"))){
+            players = (ArrayList<Player>)inputStream.readObject();
+            Collections.sort(players);
+        }catch (IOException | ClassNotFoundException e){
+            e.printStackTrace();
+        }
+
         this.primaryStage = primaryStage;
         setPrefSize(1024,614);
         BackgroundImage myBackground = new BackgroundImage(new Image("file:images/gameGraffic.png",1024, 614, false,true),
@@ -37,12 +46,6 @@ public class HighScores extends Pane {
         ListView<Player> viewPane = new ListView<>();
         showViewPane(viewPane);
         getChildren().add(viewPane);
-
-        /*
-        showViewPane(viewPane);
-        getChildren().add(viewPane);
-
-         */
 
     }
 
@@ -68,6 +71,29 @@ public class HighScores extends Pane {
     }
 
     public static void addPlayer(Player p){
+        File file = new File("highscores.bin");
+
+        if(file.exists()) {
+            try(ObjectInputStream inputStream = new ObjectInputStream(new FileInputStream("highscores.bin"))){
+                players = (ArrayList<Player>)inputStream.readObject();
+            }catch (IOException | ClassNotFoundException e){
+                e.printStackTrace();
+            }
+            file.delete();
+        }
+
         players.add(p);
+
+        try {
+            file.createNewFile();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        try(ObjectOutputStream outputStream = new ObjectOutputStream(new FileOutputStream(file))){
+            outputStream.writeObject(players);
+        }catch (IOException e){
+            e.printStackTrace();
+        }
     }
 }

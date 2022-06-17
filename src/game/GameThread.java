@@ -7,22 +7,28 @@ import javafx.animation.RotateTransition;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.Scene;
+import javafx.scene.control.DialogEvent;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.shape.LineTo;
 import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
+import javafx.stage.Stage;
 import javafx.util.Duration;
+import mainMenu.MainMenu;
 
 import java.util.Random;
 
 public class GameThread extends Thread{
     private Thread gameThread;
     private GamePane gamePane;
+    private Stage primaryStage;
 
-    public GameThread(GamePane gamePane){
+    public GameThread(GamePane gamePane, Stage primaryStage){
         this.gamePane = gamePane;
+        this.primaryStage = primaryStage;
         gameThread = new Thread(() -> {
                 while (!gameThread.isInterrupted()) {
                     if (!continuePlaying()){
@@ -32,8 +38,15 @@ public class GameThread extends Thread{
                             text.setContentText("Write your nickname");
                             text.show();
 
-                            Player p = new Player(text.getContentText(), Integer.parseInt(gamePane.getScore()));
-                            HighScores.addPlayer(p);
+                            text.setOnCloseRequest(new EventHandler<DialogEvent>() {
+                                @Override
+                                public void handle(DialogEvent dialogEvent) {
+                                    Player p = new Player(text.getResult(), Integer.parseInt(gamePane.getScore()));
+                                    HighScores.addPlayer(p);
+                                }
+                            });
+
+                            primaryStage.setScene(new Scene(new MainMenu(primaryStage),1024,614));
 
                         });
                         break;

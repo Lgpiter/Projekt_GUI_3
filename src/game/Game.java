@@ -13,11 +13,12 @@ import javafx.stage.Stage;
 import mainMenu.MainMenu;
 
 public class Game extends Pane {
-    GamePane gamePane = new GamePane();
+    GamePane gamePane;
     Stage primaryStage;
 
     public Game(Stage primaryStage){
         this.primaryStage = primaryStage;
+        gamePane = new GamePane(primaryStage);
 
         setPrefSize(1024,614);
         BackgroundImage myBackground = new BackgroundImage(new Image("file:images/gameGraffic.png",1024, 614, false,true),
