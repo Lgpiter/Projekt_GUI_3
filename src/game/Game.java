@@ -1,6 +1,5 @@
 package game;
 
-
 import javafx.event.EventHandler;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;

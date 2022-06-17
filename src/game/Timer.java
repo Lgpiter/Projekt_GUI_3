@@ -48,11 +48,12 @@ public class Timer extends Thread{
                     Thread.sleep(1000);
                 }
             }catch (InterruptedException ignore){
-         }
+            }
         }
         );
-        time.start();
     }
+
+    public void startThred() {time.start();}
 
     public void stopThread(){
         time.interrupt();

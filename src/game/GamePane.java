@@ -11,6 +11,7 @@ public class GamePane extends Pane {
     private Label timeLabel = new Label("00:00");
 
     private Timer timer = new Timer(timeLabel);
+    private GameThread gameThread = new GameThread(this);
 
 
     public GamePane(){
@@ -22,15 +23,22 @@ public class GamePane extends Pane {
         setBackground(new Background(myBackground));
 
         getChildren().add(score);
+        score.setLayoutX(50);
 
         getChildren().add(timeLabel);
         timeLabel.setLayoutX(230);
         getChildren().add(healths);
         healths.setLayoutX(400);
 
+        timer.startThred();
+        gameThread.start();
     }
 
     public Timer getTimer() {
         return timer;
+    }
+
+    public GameThread getGameThread() {
+        return gameThread;
     }
 }
