@@ -1,7 +1,7 @@
 package mainMenu;
 
 import game.Game;
-import highScore.highScores;
+import highScore.HighScores;
 import javafx.event.EventHandler;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
@@ -49,7 +49,7 @@ public class MainMenu extends Pane {
         buttonB.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
-                primaryStage.setScene(new Scene(new highScores(primaryStage),1024,614));
+                primaryStage.setScene(new Scene(new HighScores(primaryStage),1024,614));
             }
         });
 

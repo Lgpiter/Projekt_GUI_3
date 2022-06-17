@@ -1,10 +1,13 @@
 package game;
 
+import highScore.HighScores;
+import highScore.Player;
 import javafx.animation.PathTransition;
 import javafx.animation.RotateTransition;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.control.TextInputDialog;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.shape.LineTo;
@@ -23,6 +26,16 @@ public class GameThread extends Thread{
         gameThread = new Thread(() -> {
                 while (!gameThread.isInterrupted()) {
                     if (!continuePlaying()){
+                        Platform.runLater(() -> {
+                            TextInputDialog text = new TextInputDialog();
+                            text.setHeaderText("GAME OVER YOUR SCORE: " + gamePane.getScore());
+                            text.setContentText("Write your nickname");
+                            text.show();
+
+                            Player p = new Player(text.getContentText(), Integer.parseInt(gamePane.getScore()));
+                            HighScores.addPlayer(p);
+
+                        });
                         break;
                     }
                     Platform.runLater(this::addEgg);

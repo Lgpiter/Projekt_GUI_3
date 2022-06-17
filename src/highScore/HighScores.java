@@ -1,10 +1,10 @@
 package highScore;
 
-import game.Game;
+import javafx.collections.FXCollections;
 import javafx.event.EventHandler;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
@@ -13,9 +13,14 @@ import javafx.stage.Stage;
 import mainMenu.MainMenu;
 import mainMenu.MainMenuButton;
 
-public class highScores extends Pane {
+import java.util.ArrayList;
+
+public class HighScores extends Pane {
     Stage primaryStage;
-    public highScores(Stage primaryStage){
+
+    private static ArrayList<Player> players = new ArrayList<>();
+
+    public HighScores(Stage primaryStage){
         this.primaryStage = primaryStage;
         setPrefSize(1024,614);
         BackgroundImage myBackground = new BackgroundImage(new Image("file:images/gameGraffic.png",1024, 614, false,true),
@@ -29,9 +34,15 @@ public class highScores extends Pane {
         addButtons();
 
 
-        Pane viewPane = new Pane();
+        ListView<Player> viewPane = new ListView<>();
         showViewPane(viewPane);
         getChildren().add(viewPane);
+
+        /*
+        showViewPane(viewPane);
+        getChildren().add(viewPane);
+
+         */
 
     }
 
@@ -47,14 +58,16 @@ public class highScores extends Pane {
         });
     }
 
-    public void showViewPane(Pane viewPane){
+    public void showViewPane(ListView viewPane){
         viewPane.setPrefSize(490,320);
         viewPane.setLayoutX(267);
         viewPane.setLayoutY(147);
-        Label label = new Label("If you want to come back press \"game a\" button");
-        label.setLayoutX(100);
-        label.setLayoutY(50);
-        viewPane.getChildren().add(label);
 
+        viewPane.setItems(FXCollections.observableArrayList(players));
+
+    }
+
+    public static void addPlayer(Player p){
+        players.add(p);
     }
 }
