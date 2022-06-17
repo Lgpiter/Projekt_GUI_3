@@ -42,7 +42,8 @@ public class Game extends Pane {
         leftUp.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
-                gamePane.moveLeft();
+                gamePane.moveLeftUp();
+                gamePane.setMousePosition(1);
             }
         });
 
@@ -52,7 +53,8 @@ public class Game extends Pane {
         leftDown.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
-                System.out.println("Lewy dolny");
+                gamePane.moveLeftDown();
+                gamePane.setMousePosition(2);
             }
         });
 
@@ -62,7 +64,8 @@ public class Game extends Pane {
         RightUp.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
-                gamePane.moveRight();
+                gamePane.moveRightUp();
+                gamePane.setMousePosition(3);
             }
         });
 
@@ -72,13 +75,10 @@ public class Game extends Pane {
         RightDown.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
-                System.out.println("Prawy dolny");
+                gamePane.moveRightDown();
+                gamePane.setMousePosition(4);
             }
         });
-    }
-
-    public void spawnEgg(){
-
     }
 
     public void setShortCut(){
@@ -94,6 +94,7 @@ public class Game extends Pane {
 
     public void exitGame(){
         gamePane.getTimer().stopThread();
+        gamePane.getGameThread().stopThread();
         primaryStage.setScene(new Scene(new MainMenu(primaryStage),1024,614));
     }
 }

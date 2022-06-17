@@ -7,9 +7,11 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 
 public class GamePane extends Pane {
-    private Label score = new Label("000");
-    private Label healths = new Label("4");
+    private Label scoreLabel = new Label("0");
+    private Label healthsLabel = new Label("4");
     private Label timeLabel = new Label("00:00");
+
+    private int mousePosition;
 
     private Timer timer = new Timer(timeLabel);
     private GameThread gameThread = new GameThread(this);
@@ -27,13 +29,15 @@ public class GamePane extends Pane {
                 BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
         setBackground(new Background(myBackground));
 
-        getChildren().add(score);
-        score.setLayoutX(50);
+        getChildren().add(scoreLabel);
+        scoreLabel.setLayoutX(50);
+
+        moveLeftUp();
 
         getChildren().add(timeLabel);
         timeLabel.setLayoutX(230);
-        getChildren().add(healths);
-        healths.setLayoutX(400);
+        getChildren().add(healthsLabel);
+        healthsLabel.setLayoutX(400);
 
         timer.startThred();
         gameThread.start();
@@ -47,7 +51,7 @@ public class GamePane extends Pane {
         return gameThread;
     }
 
-    public void moveRight(){
+    public void moveRightUp(){
         getChildren().remove(rightMouse);
         getChildren().remove(leftMouse);
         getChildren().remove(hands);
@@ -56,7 +60,7 @@ public class GamePane extends Pane {
         hands.setFitWidth(80);
         hands.setFitHeight(80);
         getChildren().add(hands);
-        hands.setLayoutX(110);
+        hands.setLayoutX(320);
         hands.setLayoutY(110);
 
         rightMouse.setFitHeight(300);
@@ -64,11 +68,11 @@ public class GamePane extends Pane {
         getChildren().add(rightMouse);
 
 
-        rightMouse.setLayoutX(160);
+        rightMouse.setLayoutX(270);
         rightMouse.setLayoutY(30);
     }
 
-    public void moveLeft(){
+    public void moveLeftUp(){
         getChildren().remove(rightMouse);
         getChildren().remove(leftMouse);
         getChildren().remove(hands);
@@ -87,5 +91,70 @@ public class GamePane extends Pane {
 
         leftMouse.setLayoutX(160);
         leftMouse.setLayoutY(30);
+    }
+
+    public void moveRightDown(){
+        getChildren().remove(rightMouse);
+        getChildren().remove(leftMouse);
+        getChildren().remove(hands);
+
+        hands = new ImageView("file:images/rightDownHands.png");
+        hands.setFitWidth(80);
+        hands.setFitHeight(80);
+        getChildren().add(hands);
+        hands.setLayoutX(320);
+        hands.setLayoutY(170);
+
+        rightMouse.setFitHeight(300);
+        rightMouse.setFitWidth(75);
+        getChildren().add(rightMouse);
+
+
+        rightMouse.setLayoutX(270);
+        rightMouse.setLayoutY(30);
+    }
+
+    public void moveLeftDown(){
+        getChildren().remove(rightMouse);
+        getChildren().remove(leftMouse);
+        getChildren().remove(hands);
+
+        hands = new ImageView("file:images/leftHandsDown.png");
+        hands.setFitWidth(80);
+        hands.setFitHeight(80);
+        getChildren().add(hands);
+        hands.setLayoutX(110);
+        hands.setLayoutY(170);
+
+        leftMouse.setFitHeight(300);
+        leftMouse.setFitWidth(75);
+        getChildren().add(leftMouse);
+
+
+        leftMouse.setLayoutX(160);
+        leftMouse.setLayoutY(30);
+    }
+
+    public void setMousePosition(int mousePosition) {
+        this.mousePosition = mousePosition;
+    }
+
+    public int getMousePosition() {
+        return mousePosition;
+    }
+
+    public String getScore() {
+        return scoreLabel.getText();
+    }
+
+    public Label getScoreLabel() {
+        return scoreLabel;
+    }
+
+    public String getHealts(){
+        return healthsLabel.getText();
+    }
+    public Label getHealthsLabel() {
+        return healthsLabel;
     }
 }

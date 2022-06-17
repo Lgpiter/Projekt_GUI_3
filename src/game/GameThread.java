@@ -3,8 +3,10 @@ package game;
 import javafx.animation.PathTransition;
 import javafx.animation.RotateTransition;
 import javafx.application.Platform;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.Pane;
 import javafx.scene.shape.LineTo;
 import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
@@ -14,19 +16,25 @@ import java.util.Random;
 
 public class GameThread extends Thread{
     private Thread gameThread;
-    private Pane gamePane;
+    private GamePane gamePane;
 
-    public GameThread(Pane gamePane){
+    public GameThread(GamePane gamePane){
         this.gamePane = gamePane;
         gameThread = new Thread(() -> {
-            try{
                 while (!gameThread.isInterrupted()) {
+                    if (!continuePlaying()){
+                        break;
+                    }
                     Platform.runLater(this::addEgg);
+                    System.out.println("test");
 
-                    Thread.sleep(4000);
+                    try {
+                        sleep(4000);
+                    } catch (InterruptedException e) {
+                        break;
+                    }
                 }
-            }catch (InterruptedException ignore){
-            }
+
         });
     }
 
@@ -37,17 +45,17 @@ public class GameThread extends Thread{
     public void stopThread(){gameThread.interrupt();}
 
     public void addEgg(){
-        ImageView test = new ImageView("file:images/Egg.png");
-        gamePane.getChildren().add(test);
+        ImageView egg = new ImageView("file:images/Egg.png");
+        gamePane.getChildren().add(egg);
 
         Random r = new Random();
-        int pom = r.nextInt(100);
+        int pom = r.nextInt(4);
 
         PathTransition pathTransition = new PathTransition();
-        pathTransition.setNode(test);
+        pathTransition.setNode(egg);
         pathTransition.setDuration(Duration.seconds(3));
 
-        RotateTransition rotateTransition = new RotateTransition(Duration.seconds(3), test);
+        RotateTransition rotateTransition = new RotateTransition(Duration.seconds(3), egg);
         rotateTransition.setFromAngle(0);
 
         Path path = new Path();
@@ -56,36 +64,155 @@ public class GameThread extends Thread{
             case 0 ->{
                 //lewy gorny rog
                 path.getElements().add(new MoveTo(20,90));
-                path.getElements().add(new LineTo(110,120));
+                path.getElements().add(new LineTo(130,130));
 
                 pathTransition.setPath(path);
                 rotateTransition.setToAngle(720);
+
+                pathTransition.setOnFinished(new EventHandler<ActionEvent>() {
+                    @Override
+                    public void handle(ActionEvent actionEvent) {
+                        if(gamePane.getMousePosition() == 1){
+                            int pom = Integer.parseInt(gamePane.getScore());
+                            pom++;
+                            String text = "" + pom;
+                            gamePane.getScoreLabel().setText(text);
+                            gamePane.getChildren().remove(egg);
+                        }
+                        else{
+                            int pom = Integer.parseInt(gamePane.getHealts());
+                            pom--;
+                            String text = "" + pom;
+                            gamePane.getHealthsLabel().setText(text);
+
+                            fallingDownAnimation(130,130,egg);
+                        }
+                    }
+                });
             }
             case 1 -> {
                 //prawy gorny rog
                 path.getElements().add(new MoveTo(450,90));
-                path.getElements().add(new LineTo(380,120));
+                path.getElements().add(new LineTo(380,130));
                 pathTransition.setPath(path);
                 rotateTransition.setToAngle(-720);
+
+                pathTransition.setOnFinished(new EventHandler<ActionEvent>() {
+                    @Override
+                    public void handle(ActionEvent actionEvent) {
+                        if(gamePane.getMousePosition() == 3){
+                            int pom = Integer.parseInt(gamePane.getScore());
+                            pom++;
+                            String text = "" + pom;
+                            gamePane.getScoreLabel().setText(text);
+                            gamePane.getChildren().remove(egg);
+                        }
+                        else{
+                            int pom = Integer.parseInt(gamePane.getHealts());
+                            pom--;
+                            String text = "" + pom;
+                            gamePane.getHealthsLabel().setText(text);
+                            fallingDownAnimation(380,130,egg);
+                        }
+                    }
+                });
             }
             case 2 -> {
                 //lewy dolny rog
                 path.getElements().add(new MoveTo(20,150));
-                path.getElements().add(new LineTo(110,200));
+                path.getElements().add(new LineTo(130,210));
                 pathTransition.setPath(path);
                 rotateTransition.setToAngle(720);
+
+                pathTransition.setOnFinished(new EventHandler<ActionEvent>() {
+                    @Override
+                    public void handle(ActionEvent actionEvent) {
+                        if(gamePane.getMousePosition() == 2){
+                            int pom = Integer.parseInt(gamePane.getScore());
+                            pom++;
+                            String text = "" + pom;
+                            gamePane.getScoreLabel().setText(text);
+                            gamePane.getChildren().remove(egg);
+                        }
+                        else{
+                            int pom = Integer.parseInt(gamePane.getHealts());
+                            pom--;
+                            String text = "" + pom;
+                            gamePane.getHealthsLabel().setText(text);
+                            fallingDownAnimation(130,210,egg);
+                        }
+                    }
+                });
             }
             case 3 -> {
                 //prawy dolny rog
                 path.getElements().add(new MoveTo(450,150));
-                path.getElements().add(new LineTo(380,200));
+                path.getElements().add(new LineTo(380,210));
                 pathTransition.setPath(path);
                 rotateTransition.setToAngle(-720);
+
+                pathTransition.setOnFinished(new EventHandler<ActionEvent>() {
+                    @Override
+                    public void handle(ActionEvent actionEvent) {
+                        if(gamePane.getMousePosition() == 4){
+                            int pom = Integer.parseInt(gamePane.getScore());
+                            pom++;
+                            String text = "" + pom;
+                            gamePane.getScoreLabel().setText(text);
+                            gamePane.getChildren().remove(egg);
+                        }
+                        else{
+                            int pom = Integer.parseInt(gamePane.getHealts());
+                            pom--;
+                            String text = "" + pom;
+                            gamePane.getHealthsLabel().setText(text);
+                            fallingDownAnimation(380,210,egg);
+                        }
+                    }
+                });
             }
         }
 
         rotateTransition.play();
         pathTransition.play();
-
     }
+
+    public void fallingDownAnimation(int x, int y, ImageView egg){
+        PathTransition pathTransition = new PathTransition();
+        pathTransition.setNode(egg);
+        pathTransition.setDuration(Duration.seconds(3));
+
+        Path path = new Path();
+        path.getElements().add(new MoveTo(x,y));
+        path.getElements().add(new LineTo(x,gamePane.getHeight() - 30));
+
+        pathTransition.setPath(path);
+
+        RotateTransition rotateTransition = new RotateTransition(Duration.seconds(3), egg);
+        rotateTransition.setFromAngle(0);
+        rotateTransition.setToAngle(720);
+
+        pathTransition.play();
+        rotateTransition.play();
+
+        pathTransition.setOnFinished(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                egg.setImage(new Image("file:images/brokenEgg.png"));
+                egg.setFitHeight(50);
+                egg.setFitWidth(50);
+
+            }
+        });
+    }
+
+    public boolean continuePlaying(){
+        int healths = Integer.parseInt(gamePane.getHealts());
+        if(healths <= 0) {
+            gamePane.getTimer().stopThread();
+            return false;
+        }
+        return true;
+    }
+
 }
