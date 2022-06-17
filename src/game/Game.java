@@ -1,12 +1,9 @@
 package game;
 
-import javafx.event.EventHandler;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCombination;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
@@ -40,56 +37,41 @@ public class Game extends Pane {
         GameButton leftUp = new GameButton();
         getChildren().add(leftUp);
         leftUp.setPosition(70,370);
-        leftUp.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent mouseEvent) {
-                gamePane.moveLeftUp();
-                gamePane.setMousePosition(1);
-            }
+        leftUp.setOnMouseClicked(mouseEvent -> {
+            gamePane.moveLeftUp();
+            gamePane.setMousePosition(1);
         });
 
         GameButton leftDown = new GameButton();
         getChildren().add(leftDown);
         leftDown.setPosition(70,480);
-        leftDown.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent mouseEvent) {
-                gamePane.moveLeftDown();
-                gamePane.setMousePosition(2);
-            }
+        leftDown.setOnMouseClicked(mouseEvent -> {
+            gamePane.moveLeftDown();
+            gamePane.setMousePosition(2);
         });
 
         GameButton RightUp = new GameButton();
         getChildren().add(RightUp);
         RightUp.setPosition(860,370);
-        RightUp.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent mouseEvent) {
-                gamePane.moveRightUp();
-                gamePane.setMousePosition(3);
-            }
+        RightUp.setOnMouseClicked(mouseEvent -> {
+            gamePane.moveRightUp();
+            gamePane.setMousePosition(3);
         });
 
         GameButton RightDown = new GameButton();
         getChildren().add(RightDown);
         RightDown.setPosition(860,480);
-        RightDown.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent mouseEvent) {
-                gamePane.moveRightDown();
-                gamePane.setMousePosition(4);
-            }
+        RightDown.setOnMouseClicked(mouseEvent -> {
+            gamePane.moveRightDown();
+            gamePane.setMousePosition(4);
         });
     }
 
     public void setShortCut(){
-        setOnKeyPressed(new EventHandler<KeyEvent>() {
-            @Override
-            public void handle(KeyEvent keyEvent) {
-                KeyCombination myCombination = KeyCombination.keyCombination("CTRL+SHIFT+Q");
-                if(myCombination.match(keyEvent))
-                    exitGame();
-            }
+        setOnKeyPressed(keyEvent -> {
+            KeyCombination myCombination = KeyCombination.keyCombination("CTRL+SHIFT+Q");
+            if(myCombination.match(keyEvent))
+                exitGame();
         });
     }
 

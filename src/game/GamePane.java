@@ -8,17 +8,17 @@ import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
 public class GamePane extends Pane {
-    private Label scoreLabel = new Label("0");
-    private Label healthsLabel = new Label("4");
-    private Label timeLabel = new Label("00:00");
+    private final Label scoreLabel = new Label("0");
+    private final Label healthsLabel = new Label("4");
+    private final Label timeLabel = new Label("00:00");
 
     private int mousePosition = 1;
 
-    private Timer timer = new Timer(timeLabel);
-    private GameThread gameThread;
+    private final Timer timer = new Timer(timeLabel);
+    private final GameThread gameThread;
 
-    private ImageView leftMouse = new ImageView("file:images/mouseLeft.png");
-    private ImageView rightMouse = new ImageView("file:images/mouseRight.png");
+    private final ImageView leftMouse = new ImageView("file:images/mouseLeft.png");
+    private final ImageView rightMouse = new ImageView("file:images/mouseRight.png");
     private ImageView hands;
 
     Stage primaryStage;
@@ -164,7 +164,7 @@ public class GamePane extends Pane {
         return scoreLabel;
     }
 
-    public String getHealts(){
+    public String getHealths(){
         return healthsLabel.getText();
     }
     public Label getHealthsLabel() {

@@ -5,10 +5,7 @@ import highScore.Player;
 import javafx.animation.PathTransition;
 import javafx.animation.RotateTransition;
 import javafx.application.Platform;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.Scene;
-import javafx.scene.control.DialogEvent;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -23,12 +20,10 @@ import java.util.Random;
 
 public class GameThread extends Thread{
     private Thread gameThread;
-    private GamePane gamePane;
-    private Stage primaryStage;
+    private final GamePane gamePane;
 
     public GameThread(GamePane gamePane, Stage primaryStage){
         this.gamePane = gamePane;
-        this.primaryStage = primaryStage;
         gameThread = new Thread(() -> {
                 while (!gameThread.isInterrupted()) {
                     if (!continuePlaying()){
@@ -38,12 +33,9 @@ public class GameThread extends Thread{
                             text.setContentText("Write your nickname");
                             text.show();
 
-                            text.setOnCloseRequest(new EventHandler<DialogEvent>() {
-                                @Override
-                                public void handle(DialogEvent dialogEvent) {
-                                    Player p = new Player(text.getResult(), Integer.parseInt(gamePane.getScore()));
-                                    HighScores.addPlayer(p);
-                                }
+                            text.setOnCloseRequest(dialogEvent -> {
+                                Player p = new Player(text.getResult(), Integer.parseInt(gamePane.getScore()));
+                                HighScores.addPlayer(p);
                             });
 
                             primaryStage.setScene(new Scene(new MainMenu(primaryStage),1024,614));
@@ -94,24 +86,21 @@ public class GameThread extends Thread{
                 pathTransition.setPath(path);
                 rotateTransition.setToAngle(720);
 
-                pathTransition.setOnFinished(new EventHandler<ActionEvent>() {
-                    @Override
-                    public void handle(ActionEvent actionEvent) {
-                        if(gamePane.getMousePosition() == 1){
-                            int pom = Integer.parseInt(gamePane.getScore());
-                            pom++;
-                            String text = "" + pom;
-                            gamePane.getScoreLabel().setText(text);
-                            gamePane.getChildren().remove(egg);
-                        }
-                        else{
-                            int pom = Integer.parseInt(gamePane.getHealts());
-                            pom--;
-                            String text = "" + pom;
-                            gamePane.getHealthsLabel().setText(text);
+                pathTransition.setOnFinished(actionEvent -> {
+                    if(gamePane.getMousePosition() == 1){
+                        int pom1 = Integer.parseInt(gamePane.getScore());
+                        pom1++;
+                        String text = "" + pom1;
+                        gamePane.getScoreLabel().setText(text);
+                        gamePane.getChildren().remove(egg);
+                    }
+                    else{
+                        int pom1 = Integer.parseInt(gamePane.getHealths());
+                        pom1--;
+                        String text = "" + pom1;
+                        gamePane.getHealthsLabel().setText(text);
 
-                            fallingDownAnimation(130,130,egg);
-                        }
+                        fallingDownAnimation(130,130,egg);
                     }
                 });
             }
@@ -122,23 +111,20 @@ public class GameThread extends Thread{
                 pathTransition.setPath(path);
                 rotateTransition.setToAngle(-720);
 
-                pathTransition.setOnFinished(new EventHandler<ActionEvent>() {
-                    @Override
-                    public void handle(ActionEvent actionEvent) {
-                        if(gamePane.getMousePosition() == 3){
-                            int pom = Integer.parseInt(gamePane.getScore());
-                            pom++;
-                            String text = "" + pom;
-                            gamePane.getScoreLabel().setText(text);
-                            gamePane.getChildren().remove(egg);
-                        }
-                        else{
-                            int pom = Integer.parseInt(gamePane.getHealts());
-                            pom--;
-                            String text = "" + pom;
-                            gamePane.getHealthsLabel().setText(text);
-                            fallingDownAnimation(380,130,egg);
-                        }
+                pathTransition.setOnFinished(actionEvent -> {
+                    if(gamePane.getMousePosition() == 3){
+                        int pom12 = Integer.parseInt(gamePane.getScore());
+                        pom12++;
+                        String text = "" + pom12;
+                        gamePane.getScoreLabel().setText(text);
+                        gamePane.getChildren().remove(egg);
+                    }
+                    else{
+                        int pom12 = Integer.parseInt(gamePane.getHealths());
+                        pom12--;
+                        String text = "" + pom12;
+                        gamePane.getHealthsLabel().setText(text);
+                        fallingDownAnimation(380,130,egg);
                     }
                 });
             }
@@ -149,23 +135,20 @@ public class GameThread extends Thread{
                 pathTransition.setPath(path);
                 rotateTransition.setToAngle(720);
 
-                pathTransition.setOnFinished(new EventHandler<ActionEvent>() {
-                    @Override
-                    public void handle(ActionEvent actionEvent) {
-                        if(gamePane.getMousePosition() == 2){
-                            int pom = Integer.parseInt(gamePane.getScore());
-                            pom++;
-                            String text = "" + pom;
-                            gamePane.getScoreLabel().setText(text);
-                            gamePane.getChildren().remove(egg);
-                        }
-                        else{
-                            int pom = Integer.parseInt(gamePane.getHealts());
-                            pom--;
-                            String text = "" + pom;
-                            gamePane.getHealthsLabel().setText(text);
-                            fallingDownAnimation(130,210,egg);
-                        }
+                pathTransition.setOnFinished(actionEvent -> {
+                    if(gamePane.getMousePosition() == 2){
+                        int pom13 = Integer.parseInt(gamePane.getScore());
+                        pom13++;
+                        String text = "" + pom13;
+                        gamePane.getScoreLabel().setText(text);
+                        gamePane.getChildren().remove(egg);
+                    }
+                    else{
+                        int pom13 = Integer.parseInt(gamePane.getHealths());
+                        pom13--;
+                        String text = "" + pom13;
+                        gamePane.getHealthsLabel().setText(text);
+                        fallingDownAnimation(130,210,egg);
                     }
                 });
             }
@@ -176,23 +159,20 @@ public class GameThread extends Thread{
                 pathTransition.setPath(path);
                 rotateTransition.setToAngle(-720);
 
-                pathTransition.setOnFinished(new EventHandler<ActionEvent>() {
-                    @Override
-                    public void handle(ActionEvent actionEvent) {
-                        if(gamePane.getMousePosition() == 4){
-                            int pom = Integer.parseInt(gamePane.getScore());
-                            pom++;
-                            String text = "" + pom;
-                            gamePane.getScoreLabel().setText(text);
-                            gamePane.getChildren().remove(egg);
-                        }
-                        else{
-                            int pom = Integer.parseInt(gamePane.getHealts());
-                            pom--;
-                            String text = "" + pom;
-                            gamePane.getHealthsLabel().setText(text);
-                            fallingDownAnimation(380,210,egg);
-                        }
+                pathTransition.setOnFinished(actionEvent -> {
+                    if(gamePane.getMousePosition() == 4){
+                        int pom14 = Integer.parseInt(gamePane.getScore());
+                        pom14++;
+                        String text = "" + pom14;
+                        gamePane.getScoreLabel().setText(text);
+                        gamePane.getChildren().remove(egg);
+                    }
+                    else{
+                        int pom14 = Integer.parseInt(gamePane.getHealths());
+                        pom14--;
+                        String text = "" + pom14;
+                        gamePane.getHealthsLabel().setText(text);
+                        fallingDownAnimation(380,210,egg);
                     }
                 });
             }
@@ -220,19 +200,16 @@ public class GameThread extends Thread{
         pathTransition.play();
         rotateTransition.play();
 
-        pathTransition.setOnFinished(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
-                egg.setImage(new Image("file:images/brokenEgg.png"));
-                egg.setFitHeight(50);
-                egg.setFitWidth(50);
+        pathTransition.setOnFinished(actionEvent -> {
+            egg.setImage(new Image("file:images/brokenEgg.png"));
+            egg.setFitHeight(50);
+            egg.setFitWidth(50);
 
-            }
         });
     }
 
     public boolean continuePlaying(){
-        int healths = Integer.parseInt(gamePane.getHealts());
+        int healths = Integer.parseInt(gamePane.getHealths());
         if(healths <= 0) {
             gamePane.getTimer().stopThread();
             return false;

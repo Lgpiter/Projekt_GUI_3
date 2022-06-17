@@ -23,26 +23,18 @@ public class Timer extends Thread{
 
                     if(counter_minutes < 10) {
                         if (counter_seconds < 10) {
-                            Platform.runLater(() -> {
-                                label.setText("0" + minutes + ":0" + seconds);
-                            });
+                            Platform.runLater(() -> label.setText("0" + minutes + ":0" + seconds));
                         }
                         else {
-                            Platform.runLater(() -> {
-                                label.setText("0" + minutes + ":" + seconds);
-                            });
+                            Platform.runLater(() -> label.setText("0" + minutes + ":" + seconds));
                         }
                     }
                     else{
                         if (counter_seconds < 10) {
-                            Platform.runLater(() -> {
-                                label.setText(minutes + ":0" + seconds);
-                            });
+                            Platform.runLater(() -> label.setText(minutes + ":0" + seconds));
                         }
                         else {
-                            Platform.runLater(() -> {
-                                label.setText(minutes + ":" + seconds);
-                            });
+                            Platform.runLater(() -> label.setText(minutes + ":" + seconds));
                         }
                     }
                     Thread.sleep(1000);
