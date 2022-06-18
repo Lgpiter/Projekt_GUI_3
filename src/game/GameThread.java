@@ -2,6 +2,7 @@ package game;
 
 import highScore.HighScores;
 import highScore.Player;
+import javafx.animation.FadeTransition;
 import javafx.animation.PathTransition;
 import javafx.animation.RotateTransition;
 import javafx.application.Platform;
@@ -204,6 +205,11 @@ public class GameThread extends Thread{
             egg.setImage(new Image("file:images/brokenEgg.png"));
             egg.setFitHeight(50);
             egg.setFitWidth(50);
+
+            FadeTransition fadeTransition = new FadeTransition(Duration.seconds(2),egg);
+            fadeTransition.setFromValue(1.0);
+            fadeTransition.setToValue(0.0);
+            fadeTransition.play();
 
         });
     }

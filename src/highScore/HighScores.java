@@ -61,12 +61,13 @@ public class HighScores extends Pane {
         });
     }
 
-    public void showViewPane(ListView viewPane){
-        viewPane.setPrefSize(490,320);
-        viewPane.setLayoutX(267);
-        viewPane.setLayoutY(147);
+    public void showViewPane(ListView viewList){
+        viewList.setPrefSize(490,320);
+        viewList.setLayoutX(267);
+        viewList.setLayoutY(147);
 
-        viewPane.setItems(FXCollections.observableArrayList(players));
+        viewList.setItems(FXCollections.observableArrayList(players));
+
 
     }
 
